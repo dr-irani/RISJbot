@@ -10,7 +10,7 @@ class CbsSpider(NewsSitemapSpider):
     name = 'cbs'
     # allowed_domains = ['cbsnews.com']
     # A list of XML sitemap files, or suitable robots.txt files with pointers.
-    sitemap_urls = ['http://www.cbsnews.com/xml-sitemap/index/news.xml'] 
+    sitemap_urls = ['https://baltimore.cbslocal.com/sitemap.xml'] 
 
     def parse_page(self, response):
         """@url http://www.cbsnews.com/news/iraqi-boy-trapped-in-mosul-for-years-finally-reunited-with-mother/
