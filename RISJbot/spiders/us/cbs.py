@@ -10,7 +10,10 @@ class CbsSpider(NewsSitemapSpider):
     name = 'cbs'
     # allowed_domains = ['cbsnews.com']
     # A list of XML sitemap files, or suitable robots.txt files with pointers.
-    sitemap_urls = ['https://baltimore.cbslocal.com/sitemap.xml'] 
+    # sitemap_urls = ['https://baltimore.cbslocal.com/sitemap.xml'] 
+    # sitemap_urls = ['http://www.cbsnews.com/xml-sitemap/index/news.xml'] 
+    sitemap_urls = ['https://www.wbaltv.com/sitemap.xml'] 
+    
 
     def parse_page(self, response):
         """@url http://www.cbsnews.com/news/iraqi-boy-trapped-in-mosul-for-years-finally-reunited-with-mother/
@@ -18,6 +21,7 @@ class CbsSpider(NewsSitemapSpider):
         @scrapes bodytext bylines fetchtime firstpubtime modtime headline
         @scrapes keywords section source summary url
         """
+        # import pdb; pdb.set_trace()
         s = response.selector
         # Remove any content from the tree before passing it to the loader.
         # There aren't native scrapy loader/selector methods for this.        
@@ -38,7 +42,10 @@ class CbsSpider(NewsSitemapSpider):
 
         # Media pages. NOTE: These can be multipage; this will only get the
         # first page's text.
-        l.add_xpath('bodytext', '//div[contains(@class, "post")]//text()')
-        l.add_xpath('bodytext', '//div[@itemid="#article-entry"]//text()')
+        
+        l.add_xpath('bodytext', '//div[contains(@class, "article-content--body-text")]//text()')
+        # l.add_xpath('bodytext', '//div[contains(@class, "main-story-wrapper")]//text()')
+        # l.add_xpath('bodytext', '//div[contains(@class, "post")]//text()')
+        # l.add_xpath('bodytext', '//div[@itemid="#article-entry"]//text()')
 
         return l.load_item()
